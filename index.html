@@ -3,48 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Typing Speed Tester</title>
+    <title>Typing Speed Test</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Typing Speed Tester</h1>
-        <div class="profile">
-            <input type="text" id="userName" placeholder="Enter your name">
-            <button onclick="saveProfile()">Save Profile</button>
-            <button onclick="loadProfile()">Load Profile</button>
-        </div>
-        <div class="difficulty">
-            <label for="difficulty">Select Difficulty:</label>
-            <select id="difficulty" onchange="updateDifficulty()">
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-            </select>
-        </div>
-        <div class="session">
-            <label for="sessionTime">Session Time (seconds):</label>
-            <input type="number" id="sessionTime" min="10" value="30">
-        </div>
-        <p id="testText" class="test-text"></p>
-        <textarea id="inputText" placeholder="Start typing here..." oninput="checkTyping()"></textarea>
-        <button onclick="startTest()">Start Test</button>
-        <button onclick="resetTest()">Reset</button>
-        <button onclick="clearHistory()">Clear History</button>
-        <div id="result" class="result"></div>
-        <div id="timer" class="timer"></div>
-        <div id="errorCount" class="error-count"></div>
-        <div id="accuracy" class="accuracy"></div>
-        <div id="progress" class="progress">
-            <div id="speedBar" class="bar"></div>
-            <div id="accuracyBar" class="bar"></div>
-        </div>
-        <div id="bestScores" class="best-scores"></div>
-        <div id="averageStats" class="average-stats"></div>
-        <div class="history">
-            <h2>Typing History</h2>
-            <ul id="historyList"></ul>
-        </div>
+        <header>
+            <h1>Typing Speed Test</h1>
+        </header>
+        <main>
+            <div class="typing-test">
+                <p id="testText"></p>
+                <textarea id="inputText" placeholder="Start typing here..." oninput="checkTyping()"></textarea>
+            </div>
+            <div class="controls">
+                <button onclick="startTest()">Start Test</button>
+                <button onclick="resetTest()">Reset</button>
+                <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+            </div>
+            <div class="stats">
+                <div id="timer" class="stat">0.0 seconds</div>
+                <div id="wpm" class="stat">WPM: 0</div>
+                <div id="accuracy" class="stat">Accuracy: 100%</div>
+            </div>
+            <div class="history">
+                <h2>Typing History</h2>
+                <ul id="historyList"></ul>
+            </div>
+            <div id="bestScores" class="best-scores"></div>
+            <div id="averageStats" class="average-stats"></div>
+        </main>
     </div>
     <script src="script.js"></script>
 </body>
