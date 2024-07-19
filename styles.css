@@ -316,3 +316,297 @@ canvas {
 .settings-panel label {
     margin-top: 10px;
 }
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* Prevent body from scrolling */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align content to the top */
+    height: 100vh;
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    background-color: #333;
+    color: #f4f4f4;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px; /* Increased max-width for larger screens */
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 20px; /* Add some margin to ensure no content is cut off */
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+body.dark-mode .container {
+    background: #444;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.typing-test {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#testText {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+#inputText {
+    width: 100%;
+    height: 100px;
+    font-size: 1em;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode #inputText {
+    border: 2px solid #666;
+    background: #555;
+    color: #f4f4f4;
+}
+
+.controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+body.dark-mode button:hover {
+    background-color: #666;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.stat {
+    font-size: 1.2em;
+}
+
+.history {
+    margin-top: 20px;
+}
+
+.history ul {
+    list-style: none;
+    padding: 0;
+}
+
+.history li {
+    margin-bottom: 10px;
+}
+
+.best-scores, .average-stats {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+.correct {
+    color: #0f0;
+}
+
+.incorrect {
+    color: #f00;
+}
+
+#progressBarContainer {
+    width: 100%;
+    background: #ddd;
+    border-radius: 5px;
+    height: 20px;
+    margin: 10px 0;
+}
+
+#progressBar {
+    height: 100%;
+    width: 0%;
+    background: #4caf50;
+    border-radius: 5px;
+    transition: width 0.3s;
+}
+
+select, input[type="text"] {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    margin: 5px;
+}
+
+button {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    background: #4caf50;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+#leaderboardList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#leaderboardList li {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+#themeSelector {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    margin: 5px;
+}
+
+#exportButton {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    background: #2196F3;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#exportButton:hover {
+    background: #1e88e5;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .container {
+    background-color: #1f1f1f;
+}
+
+body.dark-mode .stat {
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+body.dark-mode textarea {
+    background-color: #222;
+    color: #e0e0e0;
+    border: 2px solid #333;
+}
+
+.settings-panel, .profile {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 15px;
+}
+
+.settings-panel label, .profile label {
+    display: block;
+    margin-top: 10px;
+}
+
+.settings-panel input[type="number"], .settings-panel input[type="color"], .profile input[type="text"] {
+    margin: 5px 0;
+}
+
+.settings-panel input[type="color"], .profile input[type="text"] {
+    width: 100%;
+}
+
+#fontSize {
+    width: 60px;
+}
+
+#userGreeting {
+    font-weight: bold;
+}
+
+.profile, .graphs {
+    margin: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+}
+
+.graphs {
+    display: flex;
+    justify-content: space-around;
+}
+
+canvas {
+    border: 1px solid #ccc;
+}
+
+.profile input, .settings-panel input {
+    width: calc(100% - 20px);
+}
+
+.profile button {
+    margin-top: 10px;
+}
+
+.settings-panel label {
+    margin-top: 10px;
+}
+/* Custom Cursor Highlighter */
+#cursorHighlighter {
+    position: fixed;
+    width: 50px; /* Size of the highlighter */
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(0, 38, 255, 0.589); /* Semi-transparent red background */
+    pointer-events: none; /* So it doesn't interfere with clicking */
+    transform: translate(-50%, -50%); /* Center the highlighter on the cursor */
+    transition: transform 0.1s ease-out; /* Smooth animation */
+    z-index: 9999; /* Ensure it’s on top of other elements */
+    filter: invert(100%); /* Invert the colors */
+}
+

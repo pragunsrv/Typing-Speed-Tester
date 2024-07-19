@@ -415,6 +415,12 @@ function updateBorderColor() {
         el.style.borderColor = borderColorInput.value;
     });
 }
+document.addEventListener('mousemove', (e) => {
+    const highlighter = document.getElementById('cursorHighlighter');
+    highlighter.style.left = `${e.pageX}px`;
+    highlighter.style.top = `${e.pageY}px`;
+});
+
 
 // Initial load
 loadProfile();
