@@ -23,6 +23,7 @@
                     <option value="0">Default Text</option>
                     <option value="1">Text Source 1</option>
                     <option value="2">Text Source 2</option>
+                    <option value="3">Random Text</option>
                 </select>
                 <select id="difficultyLevel" onchange="changeDifficultyLevel()">
                     <option value="easy">Easy</option>
@@ -36,6 +37,8 @@
                     <option value="light">Light</option>
                     <option value="dark">Dark</option>
                 </select>
+                <button onclick="toggleStatistics()">Toggle Statistics</button>
+                <button onclick="toggleGameMode()">Toggle Game Mode</button>
             </div>
             <div class="stats">
                 <div id="timer" class="stat">0.0 seconds</div>
@@ -73,6 +76,10 @@
                 <input type="text" id="username" placeholder="Enter your username">
                 <button onclick="saveProfile()">Save Profile</button>
                 <p id="userGreeting"></p>
+            </div>
+            <div class="graphs">
+                <canvas id="accuracyChart"></canvas>
+                <canvas id="wpmChart"></canvas>
             </div>
         </main>
     </div>

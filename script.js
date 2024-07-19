@@ -274,3 +274,147 @@ function exportToCSV() {
     document.body.appendChild(link);
     link.click();
 }
+const accuracyChart = document.getElementById('accuracyChart').getContext('2d');
+const wpmChart = document.getElementById('wpmChart').getContext('2d');
+let isStatisticsVisible = true;
+let isGameModeChallenge = false;
+let userProfiles = JSON.parse(localStorage.getItem('userProfiles')) || {};
+
+function startTest() {
+    inputText.value = "";
+    inputText.disabled = false;
+    inputText.focus();
+    startTime = new Date().getTime();
+    timerDiv.innerText = "0.0 seconds";
+    wpmDiv.innerText = "WPM: 0";
+    accuracyDiv.innerText = "Accuracy: 100%";
+    charCountDiv.innerText = "Characters Typed: 0";
+    progressBar.style.width = '0%';
+    errorCount = 0;
+    clearInterval(timerInterval);
+    timerInterval = setInterval(updateTimer, 100);
+    setTestText();
+    highlightText();
+}
+
+function setTestText() {
+    const selectedSource = textSourceSelect.value;
+    if (selectedSource === '3') {
+        currentText = generateRandomText();
+    } else {
+        currentText = sampleTexts[selectedSource] || additionalTexts[selectedSource - 2] || "";
+    }
+    testTextDiv.innerText = currentText;
+}
+
+function generateRandomText() {
+    const words = ["quick", "brown", "fox", "jumps", "over", "lazy", "dog", "example", "text", "for", "typing", "practice"];
+    let randomText = '';
+    for (let i = 0; i < 50; i++) {
+        randomText += words[Math.floor(Math.random() * words.length)] + ' ';
+    }
+    return randomText.trim();
+}
+
+function toggleStatistics() {
+    isStatisticsVisible = !isStatisticsVisible;
+    document.querySelector('.stats').style.display = isStatisticsVisible ? 'block' : 'none';
+    document.querySelector('.graphs').style.display = isStatisticsVisible ? 'block' : 'none';
+}
+
+function toggleGameMode() {
+    isGameModeChallenge = !isGameModeChallenge;
+    inputText.placeholder = isGameModeChallenge ? 'Challenge Mode: Type as fast as you can!' : 'Start typing here...';
+}
+
+function endTest() {
+    clearInterval(timerInterval);
+    inputText.disabled = true;
+    const elapsedTime = calculateTime();
+    const wpm = calculateWPM();
+    const accuracy = calculateAccuracy();
+    addToHistory(testTextDiv.innerText, elapsedTime, wpm, accuracy);
+    updateCharts();
+}
+
+function updateCharts() {
+    new Chart(accuracyChart, {
+        type: 'line',
+        data: {
+            labels: ['Test 1', 'Test 2', 'Test 3'], // Dynamic data needed
+            datasets: [{
+                label: 'Accuracy Over Time',
+                data: [100, 95, 90], // Dynamic data needed
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    new Chart(wpmChart, {
+        type: 'bar',
+        data: {
+            labels: ['Test 1', 'Test 2', 'Test 3'], // Dynamic data needed
+            datasets: [{
+                label: 'WPM Over Time',
+                data: [60, 65, 70], // Dynamic data needed
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+}
+
+function saveProfile() {
+    userProfile.username = usernameInput.value.trim();
+    localStorage.setItem('userProfiles', JSON.stringify(userProfiles));
+    userGreeting.innerText = `Hello, ${userProfile.username || 'Guest'}!`;
+}
+
+function loadProfile() {
+    const savedProfile = userProfiles[userProfile.username] || {};
+    fontSizeInput.value = savedProfile.fontSize || 16;
+    textColorInput.value = savedProfile.textColor || '#000000';
+    bgColorInput.value = savedProfile.bgColor || '#ffffff';
+    borderColorInput.value = savedProfile.borderColor || '#cccccc';
+    updateFontSize();
+    updateTextColor();
+    updateBgColor();
+    updateBorderColor();
+}
+
+function updateFontSize() {
+    document.querySelectorAll('.stat, #testText, textarea').forEach(el => {
+        el.style.fontSize = `${fontSizeInput.value}px`;
+    });
+}
+
+function updateTextColor() {
+    document.querySelectorAll('#testText, textarea').forEach(el => {
+        el.style.color = textColorInput.value;
+    });
+}
+
+function updateBgColor() {
+    document.body.style.backgroundColor = bgColorInput.value;
+}
+
+function updateBorderColor() {
+    document.querySelectorAll('.typing-test, .controls, .stats, .history, .leaderboard').forEach(el => {
+        el.style.borderColor = borderColorInput.value;
+    });
+}
+
+// Initial load
+loadProfile();
