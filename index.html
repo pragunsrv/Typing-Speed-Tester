@@ -20,11 +20,25 @@
                 <button onclick="startTest()">Start Test</button>
                 <button onclick="resetTest()">Reset</button>
                 <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+                <select id="textSource" onchange="changeTextSource()">
+                    <option value="0">Default Text</option>
+                    <option value="1">Text Source 1</option>
+                    <option value="2">Text Source 2</option>
+                </select>
+                <select id="difficultyLevel" onchange="changeDifficultyLevel()">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
             </div>
             <div class="stats">
                 <div id="timer" class="stat">0.0 seconds</div>
                 <div id="wpm" class="stat">WPM: 0</div>
                 <div id="accuracy" class="stat">Accuracy: 100%</div>
+                <div id="charCount" class="stat">Characters Typed: 0</div>
+                <div id="progressBarContainer">
+                    <div id="progressBar"></div>
+                </div>
             </div>
             <div class="history">
                 <h2>Typing History</h2>
