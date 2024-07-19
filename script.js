@@ -13,8 +13,14 @@ const testTextDiv = document.getElementById('testText');
 const historyList = document.getElementById('historyList');
 const errorCountDiv = document.getElementById('errorCount');
 const accuracyDiv = document.getElementById('accuracy');
+const speedBar = document.getElementById('speedBar');
+const accuracyBar = document.getElementById('accuracyBar');
+const bestScoresDiv = document.getElementById('bestScores');
+const userNameInput = document.getElementById('userName');
 let timerInterval;
 let errorCount = 0;
+let bestSpeed = Infinity;
+let bestAccuracy = 0;
 
 function startTest() {
     inputText.value = "";
@@ -26,6 +32,8 @@ function startTest() {
     timerDiv.innerText = "0.0 seconds";
     errorCountDiv.innerText = "";
     accuracyDiv.innerText = "";
+    speedBar.style.width = '0%';
+    accuracyBar.style.width = '0%';
     errorCount = 0;
     clearInterval(timerInterval);
     timerInterval = setInterval(updateTimer, 100);
@@ -53,6 +61,7 @@ function checkTyping() {
         const wpm = (wordsTyped / timeTaken) * 60;
         const accuracy = ((testText.length - errorCount) / testText.length) * 100;
         resultDiv.innerText = `You took ${timeTaken.toFixed(1)} seconds. WPM: ${wpm.toFixed(1)}. Accuracy: ${accuracy.toFixed(1)}%.`;
+        updateBestScores(timeTaken, accuracy);
         inputText.disabled = true;
         clearInterval(timerInterval);
         addToHistory(testText, timeTaken, wpm, accuracy);
@@ -64,7 +73,11 @@ function checkTyping() {
         errorCountDiv.innerText = `Errors: ${errorCount}`;
         const accuracy = ((typedText.length - errorCount) / testText.length) * 100;
         accuracyDiv.innerText = `Accuracy: ${accuracy.toFixed(1)}%`;
+        accuracyBar.style.width = `${accuracy.toFixed(1)}%`;
     }
+    const elapsedTime = (new Date().getTime() - startTime) / 1000;
+    const speed = (typedText.length / elapsedTime) * 60;
+    speedBar.style.width = `${Math.min(speed, 100)}%`;
 }
 
 function resetTest() {
@@ -75,6 +88,8 @@ function resetTest() {
     timerDiv.innerText = "";
     errorCountDiv.innerText = "";
     accuracyDiv.innerText = "";
+    speedBar.style.width = '0%';
+    accuracyBar.style.width = '0%';
     clearInterval(timerInterval);
 }
 
@@ -86,4 +101,27 @@ function addToHistory(text, time, wpm, accuracy) {
 
 function clearHistory() {
     historyList.innerHTML = "";
+}
+
+function saveProfile() {
+    const userName = userNameInput.value.trim();
+    if (userName) {
+        localStorage.setItem('userName', userName);
+        alert('Profile saved!');
+    } else {
+        alert('Please enter a name.');
+    }
+}
+
+function updateBestScores(timeTaken, accuracy) {
+    if (timeTaken < bestSpeed) {
+        bestSpeed = timeTaken;
+    }
+    if (accuracy > bestAccuracy) {
+        bestAccuracy = accuracy;
+    }
+    bestScoresDiv.innerHTML = `
+        <p>Best Speed: ${bestSpeed.toFixed(1)} seconds</p>
+        <p>Best Accuracy: ${bestAccuracy.toFixed(1)}%</p>
+    `;
 }

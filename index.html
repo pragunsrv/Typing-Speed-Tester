@@ -9,6 +9,10 @@
 <body>
     <div class="container">
         <h1>Typing Speed Tester</h1>
+        <div class="profile">
+            <input type="text" id="userName" placeholder="Enter your name">
+            <button onclick="saveProfile()">Save Profile</button>
+        </div>
         <p id="testText" class="test-text"></p>
         <textarea id="inputText" placeholder="Start typing here..." oninput="checkTyping()"></textarea>
         <button onclick="startTest()">Start Test</button>
@@ -18,6 +22,11 @@
         <div id="timer" class="timer"></div>
         <div id="errorCount" class="error-count"></div>
         <div id="accuracy" class="accuracy"></div>
+        <div id="progress" class="progress">
+            <div id="speedBar" class="bar"></div>
+            <div id="accuracyBar" class="bar"></div>
+        </div>
+        <div id="bestScores" class="best-scores"></div>
         <div class="history">
             <h2>Typing History</h2>
             <ul id="historyList"></ul>
