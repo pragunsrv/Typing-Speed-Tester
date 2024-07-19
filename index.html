@@ -19,7 +19,6 @@
             <div class="controls">
                 <button onclick="startTest()">Start Test</button>
                 <button onclick="resetTest()">Reset</button>
-                <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
                 <select id="textSource" onchange="changeTextSource()">
                     <option value="0">Default Text</option>
                     <option value="1">Text Source 1</option>
@@ -29,6 +28,13 @@
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>
                     <option value="hard">Hard</option>
+                </select>
+                <input type="text" id="customText" placeholder="Add custom text here">
+                <button onclick="addCustomText()">Add Custom Text</button>
+                <button onclick="exportToCSV()">Export to CSV</button>
+                <select id="themeSelector" onchange="changeTheme()">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
                 </select>
             </div>
             <div class="stats">
@@ -46,8 +52,13 @@
             </div>
             <div id="bestScores" class="best-scores"></div>
             <div id="averageStats" class="average-stats"></div>
+            <div class="leaderboard">
+                <h2>Leaderboard</h2>
+                <ul id="leaderboardList"></ul>
+            </div>
         </main>
     </div>
     <script src="script.js"></script>
 </body>
 </html>
+    

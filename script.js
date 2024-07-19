@@ -20,9 +20,12 @@ const charCountDiv = document.getElementById('charCount');
 const historyList = document.getElementById('historyList');
 const bestScoresDiv = document.getElementById('bestScores');
 const averageStatsDiv = document.getElementById('averageStats');
+const leaderboardList = document.getElementById('leaderboardList');
 const textSourceSelect = document.getElementById('textSource');
 const difficultyLevelSelect = document.getElementById('difficultyLevel');
+const customTextInput = document.getElementById('customText');
 const progressBar = document.getElementById('progressBar');
+const themeSelector = document.getElementById('themeSelector');
 let errorCount = 0;
 let bestSpeed = Infinity;
 let bestAccuracy = 0;
@@ -31,6 +34,7 @@ let totalAccuracy = 0;
 let testCount = 0;
 let currentText;
 let currentDifficulty;
+let leaderboard = [];
 
 function startTest() {
     inputText.value = "";
@@ -139,7 +143,6 @@ function highlightText() {
         }
         return char;
     }).join('');
-
     testTextDiv.innerHTML = highlightedText;
 }
 
@@ -149,6 +152,7 @@ function addToHistory(text, time, wpm, accuracy) {
     historyList.appendChild(li);
     updateBestScores(time, accuracy);
     updateAverageStats(time, accuracy);
+    updateLeaderboard(wpm, accuracy);
 }
 
 function updateBestScores(timeTaken, accuracy) {
@@ -175,6 +179,16 @@ function updateAverageStats(timeTaken, accuracy) {
     `;
 }
 
+function updateLeaderboard(wpm, accuracy) {
+    leaderboard.push({ wpm, accuracy });
+    leaderboard.sort((a, b) => b.wpm - a.wpm || b.accuracy - a.accuracy);
+    leaderboard = leaderboard.slice(0, 5);
+
+    leaderboardList.innerHTML = leaderboard.map((entry, index) => 
+        `<li>Rank ${index + 1}: WPM: ${entry.wpm.toFixed(1)}, Accuracy: ${entry.accuracy.toFixed(1)}%</li>`
+    ).join('');
+}
+
 function endTest() {
     clearInterval(timerInterval);
     inputText.disabled = true;
@@ -197,10 +211,16 @@ function resetTest() {
     historyList.innerHTML = "";
     bestScoresDiv.innerHTML = "";
     averageStatsDiv.innerHTML = "";
+    leaderboardList.innerHTML = "";
 }
 
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
+function addCustomText() {
+    const customText = customTextInput.value.trim();
+    if (customText) {
+        additionalTexts.push(customText);
+        textSourceSelect.innerHTML += `<option value="${additionalTexts.length + 1}">${customText.substring(0, 20)}...</option>`;
+        customTextInput.value = "";
+    }
 }
 
 function changeTextSource() {
@@ -213,3 +233,22 @@ function changeDifficultyLevel() {
     // Modify text based on difficulty level if needed
 }
 
+function changeTheme() {
+    document.body.classList.toggle('dark-mode', themeSelector.value === 'dark');
+}
+
+function exportToCSV() {
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Text,Time,WPM,Accuracy\n";
+    
+    Array.from(historyList.getElementsByTagName('li')).forEach(li => {
+        csvContent += li.innerText.replace(/ - /g, ',').replace(/Text: /, '').replace(/ /g, ',').replace(/seconds/, 'seconds').replace(/WPM: /, '').replace(/Accuracy: /, '') + "\n";
+    });
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', 'typing_test_history.csv');
+    document.body.appendChild(link);
+    link.click();
+}

@@ -152,3 +152,93 @@ body.dark-mode select {
     background: #555;
     color: #f4f4f4;
 }
+#progressBarContainer {
+    width: 100%;
+    background: #ddd;
+    border-radius: 5px;
+    height: 20px;
+    margin: 10px 0;
+}
+
+#progressBar {
+    height: 100%;
+    width: 0%;
+    background: #4caf50;
+    border-radius: 5px;
+    transition: width 0.3s;
+}
+
+select, input[type="text"] {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    margin: 5px;
+}
+
+button {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    background: #4caf50;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+#leaderboardList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#leaderboardList li {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+#themeSelector {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    margin: 5px;
+}
+
+#exportButton {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    background: #2196F3;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#exportButton:hover {
+    background: #1e88e5;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .container {
+    background-color: #1f1f1f;
+}
+
+body.dark-mode .stat {
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+body.dark-mode textarea {
+    background-color: #222;
+    color: #e0e0e0;
+    border: 2px solid #333;
+}
