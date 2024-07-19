@@ -43,9 +43,29 @@ body {
     background-color: #ddd;
 }
 
+.difficulty {
+    margin-bottom: 20px;
+}
+
+.difficulty label {
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+
+.difficulty select {
+    padding: 10px;
+    font-size: 1em;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
 .test-text {
     font-size: 1.2em;
     margin-bottom: 20px;
+    white-space: pre-wrap;
+    text-align: left;
+    text-align: start;
+    position: relative;
 }
 
 textarea {
@@ -56,6 +76,7 @@ textarea {
     border-radius: 5px;
     padding: 10px;
     font-size: 1em;
+    overflow: auto;
 }
 
 textarea.error {
@@ -97,6 +118,8 @@ button:hover {
     height: 20px;
     margin: 5px 0;
     border-radius: 5px;
+    position: relative;
+    background-color: #e0e0e0;
 }
 
 #speedBar {
@@ -109,7 +132,7 @@ button:hover {
     width: 0%;
 }
 
-.best-scores {
+.best-scores, .average-stats {
     margin-top: 20px;
     font-size: 1.2em;
     color: #555;
@@ -134,4 +157,12 @@ button:hover {
     margin: 5px 0;
     border: 1px solid #ddd;
     border-radius: 5px;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
 }

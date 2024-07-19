@@ -13,6 +13,14 @@
             <input type="text" id="userName" placeholder="Enter your name">
             <button onclick="saveProfile()">Save Profile</button>
         </div>
+        <div class="difficulty">
+            <label for="difficulty">Select Difficulty:</label>
+            <select id="difficulty" onchange="updateDifficulty()">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+        </div>
         <p id="testText" class="test-text"></p>
         <textarea id="inputText" placeholder="Start typing here..." oninput="checkTyping()"></textarea>
         <button onclick="startTest()">Start Test</button>
@@ -27,6 +35,7 @@
             <div id="accuracyBar" class="bar"></div>
         </div>
         <div id="bestScores" class="best-scores"></div>
+        <div id="averageStats" class="average-stats"></div>
         <div class="history">
             <h2>Typing History</h2>
             <ul id="historyList"></ul>
