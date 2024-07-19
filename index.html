@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .test-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Typing Speed Tester</h1>
+        <p class="test-text">The quick brown fox jumps over the lazy dog.</p>
+        <textarea id="inputText" placeholder="Start typing here..." oninput="checkTyping()"></textarea>
+        <button onclick="startTest()">Start Test</button>
+        <div id="result" class="result"></div>
+    </div>
+    <script>
+        let startTime;
+        const testText = "The quick brown fox jumps over the lazy dog.";
+        const resultDiv = document.getElementById('result');
+        const inputText = document.getElementById('inputText');
+
+        function startTest() {
+            inputText.value = "";
+            inputText.disabled = false;
+            inputText.focus();
+            startTime = new Date().getTime();
+            resultDiv.innerText = "";
+        }
+
+        function checkTyping() {
+            const typedText = inputText.value;
+            if (typedText === testText) {
+                const endTime = new Date().getTime();
+                const timeTaken = (endTime - startTime) / 1000;
+                resultDiv.innerText = `You took ${timeTaken} seconds.`;
+                inputText.disabled = true;
+            }
+        }
+    </script>
+</body>
+</html>
