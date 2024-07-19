@@ -1,90 +1,24 @@
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
+/* ... previous styles ... */
+
+.session {
+    margin-bottom: 20px;
 }
 
-.container {
-    background-color: white;
-    padding: 20px;
+.session label {
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+
+.session input[type="number"] {
+    padding: 10px;
+    font-size: 1em;
+    border: 2px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80px;
     text-align: center;
-    width: 80%;
-    max-width: 600px;
 }
 
-.profile {
-    margin-bottom: 20px;
-}
-
-.profile input {
-    padding: 10px;
-    font-size: 1em;
-    margin-right: 10px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-}
-
-.profile button {
-    padding: 10px 20px;
-    font-size: 1em;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.profile button:hover {
-    background-color: #ddd;
-}
-
-.difficulty {
-    margin-bottom: 20px;
-}
-
-.difficulty label {
-    font-size: 1.2em;
-    margin-right: 10px;
-}
-
-.difficulty select {
-    padding: 10px;
-    font-size: 1em;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-}
-
-.test-text {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-    white-space: pre-wrap;
-    text-align: left;
-    text-align: start;
-    position: relative;
-}
-
-textarea {
-    width: 100%;
-    height: 100px;
-    margin-bottom: 20px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 1em;
-    overflow: auto;
-}
-
-textarea.error {
-    border-color: red;
-    background-color: #ffe6e6;
-}
-
-button {
+.profile button, .session button {
     padding: 10px 20px;
     font-size: 1em;
     margin: 5px;
@@ -93,76 +27,11 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.profile button:hover, .session button:hover {
     background-color: #ddd;
 }
 
-.result {
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: green;
-}
-
-.timer, .error-count, .accuracy {
-    margin-top: 10px;
+.error-count, .accuracy {
     font-size: 1.2em;
     color: #555;
-}
-
-.progress {
-    margin-top: 20px;
-    text-align: left;
-}
-
-.bar {
-    height: 20px;
-    margin: 5px 0;
-    border-radius: 5px;
-    position: relative;
-    background-color: #e0e0e0;
-}
-
-#speedBar {
-    background-color: #4caf50;
-    width: 0%;
-}
-
-#accuracyBar {
-    background-color: #2196f3;
-    width: 0%;
-}
-
-.best-scores, .average-stats {
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: #555;
-}
-
-.history {
-    margin-top: 20px;
-}
-
-.history h2 {
-    font-size: 1.2em;
-}
-
-.history ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.history li {
-    background-color: #f9f9f9;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.correct {
-    color: green;
-}
-
-.incorrect {
-    color: red;
 }

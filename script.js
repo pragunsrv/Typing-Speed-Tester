@@ -1,4 +1,5 @@
 let startTime;
+let sessionTime;
 const testTexts = {
     easy: [
         "The quick brown fox jumps over the lazy dog.",
@@ -26,7 +27,9 @@ const bestScoresDiv = document.getElementById('bestScores');
 const averageStatsDiv = document.getElementById('averageStats');
 const userNameInput = document.getElementById('userName');
 const difficultySelect = document.getElementById('difficulty');
+const sessionTimeInput = document.getElementById('sessionTime');
 let timerInterval;
+let sessionInterval;
 let errorCount = 0;
 let bestSpeed = Infinity;
 let bestAccuracy = 0;
@@ -36,6 +39,7 @@ let testCount = 0;
 let currentDifficulty = 'easy';
 
 function startTest() {
+    sessionTime = parseInt(sessionTimeInput.value) * 1000; // Convert to milliseconds
     inputText.value = "";
     inputText.disabled = false;
     inputText.focus();
@@ -49,7 +53,9 @@ function startTest() {
     accuracyBar.style.width = '0%';
     errorCount = 0;
     clearInterval(timerInterval);
+    clearInterval(sessionInterval);
     timerInterval = setInterval(updateTimer, 100);
+    sessionInterval = setTimeout(endTest, sessionTime);
     setTestText();
     highlightText();
 }
@@ -69,6 +75,12 @@ function updateTimer() {
     const currentTime = new Date().getTime();
     const elapsedTime = (currentTime - startTime) / 1000;
     timerDiv.innerText = `${elapsedTime.toFixed(1)} seconds`;
+}
+
+function endTest() {
+    clearInterval(timerInterval);
+    inputText.disabled = true;
+    resultDiv.innerText += " - Test ended!";
 }
 
 function checkTyping() {
@@ -127,6 +139,7 @@ function resetTest() {
     speedBar.style.width = '0%';
     accuracyBar.style.width = '0%';
     clearInterval(timerInterval);
+    clearInterval(sessionInterval);
 }
 
 function addToHistory(text, time, wpm, accuracy) {
@@ -146,6 +159,16 @@ function saveProfile() {
         alert('Profile saved!');
     } else {
         alert('Please enter a name.');
+    }
+}
+
+function loadProfile() {
+    const userName = localStorage.getItem('userName');
+    if (userName) {
+        userNameInput.value = userName;
+        alert('Profile loaded!');
+    } else {
+        alert('No profile found.');
     }
 }
 

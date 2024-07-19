@@ -12,6 +12,7 @@
         <div class="profile">
             <input type="text" id="userName" placeholder="Enter your name">
             <button onclick="saveProfile()">Save Profile</button>
+            <button onclick="loadProfile()">Load Profile</button>
         </div>
         <div class="difficulty">
             <label for="difficulty">Select Difficulty:</label>
@@ -20,6 +21,10 @@
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
             </select>
+        </div>
+        <div class="session">
+            <label for="sessionTime">Session Time (seconds):</label>
+            <input type="number" id="sessionTime" min="10" value="30">
         </div>
         <p id="testText" class="test-text"></p>
         <textarea id="inputText" placeholder="Start typing here..." oninput="checkTyping()"></textarea>
