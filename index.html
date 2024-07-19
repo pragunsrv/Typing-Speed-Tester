@@ -9,12 +9,16 @@
 <body>
     <div class="container">
         <h1>Typing Speed Tester</h1>
-        <p class="test-text">The quick brown fox jumps over the lazy dog.</p>
+        <p id="testText" class="test-text"></p>
         <textarea id="inputText" placeholder="Start typing here..." oninput="checkTyping()"></textarea>
         <button onclick="startTest()">Start Test</button>
         <button onclick="resetTest()">Reset</button>
         <div id="result" class="result"></div>
         <div id="timer" class="timer"></div>
+        <div class="history">
+            <h2>Typing History</h2>
+            <ul id="historyList"></ul>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
