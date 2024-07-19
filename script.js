@@ -11,7 +11,10 @@ const inputText = document.getElementById('inputText');
 const timerDiv = document.getElementById('timer');
 const testTextDiv = document.getElementById('testText');
 const historyList = document.getElementById('historyList');
+const errorCountDiv = document.getElementById('errorCount');
+const accuracyDiv = document.getElementById('accuracy');
 let timerInterval;
+let errorCount = 0;
 
 function startTest() {
     inputText.value = "";
@@ -21,6 +24,9 @@ function startTest() {
     resultDiv.innerText = "";
     inputText.classList.remove('error');
     timerDiv.innerText = "0.0 seconds";
+    errorCountDiv.innerText = "";
+    accuracyDiv.innerText = "";
+    errorCount = 0;
     clearInterval(timerInterval);
     timerInterval = setInterval(updateTimer, 100);
     setTestText();
@@ -45,14 +51,19 @@ function checkTyping() {
         const timeTaken = (endTime - startTime) / 1000;
         const wordsTyped = testText.split(" ").length;
         const wpm = (wordsTyped / timeTaken) * 60;
-        resultDiv.innerText = `You took ${timeTaken.toFixed(1)} seconds. WPM: ${wpm.toFixed(1)}.`;
+        const accuracy = ((testText.length - errorCount) / testText.length) * 100;
+        resultDiv.innerText = `You took ${timeTaken.toFixed(1)} seconds. WPM: ${wpm.toFixed(1)}. Accuracy: ${accuracy.toFixed(1)}%.`;
         inputText.disabled = true;
         clearInterval(timerInterval);
-        addToHistory(testText, timeTaken, wpm);
+        addToHistory(testText, timeTaken, wpm, accuracy);
     } else if (testText.startsWith(typedText)) {
         inputText.classList.remove('error');
     } else {
         inputText.classList.add('error');
+        errorCount++;
+        errorCountDiv.innerText = `Errors: ${errorCount}`;
+        const accuracy = ((typedText.length - errorCount) / testText.length) * 100;
+        accuracyDiv.innerText = `Accuracy: ${accuracy.toFixed(1)}%`;
     }
 }
 
@@ -62,11 +73,17 @@ function resetTest() {
     resultDiv.innerText = "";
     inputText.classList.remove('error');
     timerDiv.innerText = "";
+    errorCountDiv.innerText = "";
+    accuracyDiv.innerText = "";
     clearInterval(timerInterval);
 }
 
-function addToHistory(text, time, wpm) {
+function addToHistory(text, time, wpm, accuracy) {
     const li = document.createElement('li');
-    li.innerText = `Text: "${text}" - Time: ${time.toFixed(1)} seconds - WPM: ${wpm.toFixed(1)}`;
+    li.innerText = `Text: "${text}" - Time: ${time.toFixed(1)} seconds - WPM: ${wpm.toFixed(1)} - Accuracy: ${accuracy.toFixed(1)}%`;
     historyList.appendChild(li);
+}
+
+function clearHistory() {
+    historyList.innerHTML = "";
 }

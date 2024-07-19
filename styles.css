@@ -58,7 +58,7 @@ button:hover {
     color: green;
 }
 
-.timer {
+.timer, .error-count, .accuracy {
     margin-top: 10px;
     font-size: 1.2em;
     color: #555;
