@@ -242,3 +242,50 @@ body.dark-mode textarea {
     color: #e0e0e0;
     border: 2px solid #333;
 }
+.settings-panel, .profile {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 15px;
+}
+
+.settings-panel label, .profile label {
+    display: block;
+    margin-top: 10px;
+}
+
+.settings-panel input[type="number"], .settings-panel input[type="color"], .profile input[type="text"] {
+    margin: 5px 0;
+}
+
+.settings-panel input[type="color"], .profile input[type="text"] {
+    width: 100%;
+}
+
+#fontSize {
+    width: 60px;
+}
+
+#userGreeting {
+    font-weight: bold;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .container {
+    background-color: #1f1f1f;
+}
+
+body.dark-mode .stat {
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+body.dark-mode textarea {
+    background-color: #222;
+    color: #e0e0e0;
+    border: 2px solid #333;
+}

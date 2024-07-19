@@ -26,6 +26,14 @@ const difficultyLevelSelect = document.getElementById('difficultyLevel');
 const customTextInput = document.getElementById('customText');
 const progressBar = document.getElementById('progressBar');
 const themeSelector = document.getElementById('themeSelector');
+const fontSizeInput = document.getElementById('fontSize');
+const textColorInput = document.getElementById('textColor');
+const bgColorInput = document.getElementById('bgColor');
+const borderColorInput = document.getElementById('borderColor');
+const usernameInput = document.getElementById('username');
+const userGreeting = document.getElementById('userGreeting');
+const settingsPanel = document.querySelector('.settings-panel');
+const profileSection = document.querySelector('.profile');
 let errorCount = 0;
 let bestSpeed = Infinity;
 let bestAccuracy = 0;
@@ -35,6 +43,9 @@ let testCount = 0;
 let currentText;
 let currentDifficulty;
 let leaderboard = [];
+let userProfile = {
+    username: ''
+};
 
 function startTest() {
     inputText.value = "";
@@ -85,55 +96,21 @@ function checkTyping() {
     errorCount = 0;
     let correctChars = 0;
 
-    for (let i = 0; i < testText.length; i++) {
+    for (let i = 0; i < typedText.length; i++) {
         if (typedText[i] === testText[i]) {
             correctChars++;
-        } else if (typedText[i] !== undefined) {
+        } else {
             errorCount++;
         }
     }
 
-    const accuracy = ((correctChars - errorCount) / testText.length) * 100;
-    const wpm = calculateWPM();
-    const charsTyped = typedText.length;
-
-    accuracyDiv.innerText = `Accuracy: ${accuracy.toFixed(1)}%`;
-    wpmDiv.innerText = `WPM: ${wpm.toFixed(1)}`;
-    charCountDiv.innerText = `Characters Typed: ${charsTyped}`;
-
-    highlightText();
+    highlightText(typedText);
+    charCountDiv.innerText = `Characters Typed: ${typedText.length}`;
+    accuracyDiv.innerText = `Accuracy: ${(100 - (errorCount / typedText.length) * 100).toFixed(1)}%`;
+    wpmDiv.innerText = `WPM: ${calculateWPM().toFixed(1)}`;
 }
 
-function calculateWPM() {
-    const typedText = inputText.value;
-    const wordsTyped = typedText.split(" ").length;
-    const elapsedTime = (new Date().getTime() - startTime) / 1000;
-    return (wordsTyped / elapsedTime) * 60;
-}
-
-function calculateAccuracy() {
-    const typedText = inputText.value;
-    const testText = testTextDiv.innerText;
-    let correctChars = 0;
-    let errorCount = 0;
-
-    for (let i = 0; i < testText.length; i++) {
-        if (typedText[i] === testText[i]) {
-            correctChars++;
-        } else if (typedText[i] !== undefined) {
-            errorCount++;
-        }
-    }
-
-    return ((correctChars - errorCount) / testText.length) * 100;
-}
-
-function calculateTime() {
-    return (new Date().getTime() - startTime) / 1000;
-}
-
-function highlightText() {
-    const typedText = inputText.value;
+function highlightText(typedText = inputText.value) {
     const testText = testTextDiv.innerText;
     const highlightedText = testText.split('').map((char, index) => {
         if (typedText[index] === char) {
@@ -198,6 +175,24 @@ function endTest() {
     addToHistory(testTextDiv.innerText, elapsedTime, wpm, accuracy);
 }
 
+function calculateTime() {
+    const endTime = new Date().getTime();
+    return (endTime - startTime) / 1000;
+}
+
+function calculateWPM() {
+    const typedText = inputText.value;
+    const words = typedText.split(/\s+/).length;
+    return (words / calculateTime()) * 60;
+}
+
+function calculateAccuracy() {
+    const typedText = inputText.value;
+    const totalChars = currentText.length;
+    const correctChars = currentText.split('').filter((char, index) => char === typedText[index]).length;
+    return (correctChars / totalChars) * 100;
+}
+
 function resetTest() {
     clearInterval(timerInterval);
     timerDiv.innerText = "0.0 seconds";
@@ -235,6 +230,33 @@ function changeDifficultyLevel() {
 
 function changeTheme() {
     document.body.classList.toggle('dark-mode', themeSelector.value === 'dark');
+}
+
+function updateFontSize() {
+    document.querySelectorAll('.stat, #testText, textarea').forEach(el => {
+        el.style.fontSize = `${fontSizeInput.value}px`;
+    });
+}
+
+function updateTextColor() {
+    document.querySelectorAll('#testText, textarea').forEach(el => {
+        el.style.color = textColorInput.value;
+    });
+}
+
+function updateBgColor() {
+    document.querySelector('body').style.backgroundColor = bgColorInput.value;
+}
+
+function updateBorderColor() {
+    document.querySelectorAll('.typing-test, .controls, .stats, .history, .leaderboard').forEach(el => {
+        el.style.borderColor = borderColorInput.value;
+    });
+}
+
+function saveProfile() {
+    userProfile.username = usernameInput.value.trim();
+    userGreeting.innerText = `Hello, ${userProfile.username || 'Guest'}!`;
 }
 
 function exportToCSV() {

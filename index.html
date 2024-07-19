@@ -56,9 +56,26 @@
                 <h2>Leaderboard</h2>
                 <ul id="leaderboardList"></ul>
             </div>
+            <div class="settings-panel">
+                <h2>Settings</h2>
+                <label for="fontSize">Font Size:</label>
+                <input type="number" id="fontSize" value="16" onchange="updateFontSize()">
+                <label for="textColor">Text Color:</label>
+                <input type="color" id="textColor" value="#000000" onchange="updateTextColor()">
+                <label for="bgColor">Background Color:</label>
+                <input type="color" id="bgColor" value="#ffffff" onchange="updateBgColor()">
+                <label for="borderColor">Border Color:</label>
+                <input type="color" id="borderColor" value="#cccccc" onchange="updateBorderColor()">
+            </div>
+            <div class="profile">
+                <h2>User Profile</h2>
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Enter your username">
+                <button onclick="saveProfile()">Save Profile</button>
+                <p id="userGreeting"></p>
+            </div>
         </main>
     </div>
     <script src="script.js"></script>
 </body>
 </html>
-    
